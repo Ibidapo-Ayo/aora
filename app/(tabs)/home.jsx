@@ -24,26 +24,25 @@ const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
 
   const { data, refetch, isLoading } = useFetch(getAllPosts);
-  const { data: latestPosts } = useFetch(getLatestPosts);
+  const { data: latestPosts, refetch: refetchPosts } = useFetch(getLatestPosts);
 
   const onRefresh = async () => {
     setRefreshing(true);
     await refetch();
+    await refetchPosts();
     setRefreshing(false);
   };
+
+  useEffect(() => {
+    onRefresh();
+  }, []);
 
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList
-        data={isLoading || refreshing ? ["items1", "item2", "items3"] : data}
+        data={data}
         keyExtractor={(item, index) => index}
-        renderItem={({ item }) =>
-          isLoading || refreshing ? (
-            <LoadingState />
-          ) : (
-            <VideoCard video={item} />
-          )
-        }
+        renderItem={({ item }) => <VideoCard video={item} />}
         ListHeaderComponent={() => (
           <View className="my-6 px-4 space-y-6">
             <View className="justify-between items-start flex-row mb-6">

@@ -48,7 +48,7 @@ const VideoCard = ({
        source={{
          uri: video,
        }}
-       className="w-full h-60 rounded-xl"
+       className="w-full h-60 rounded-xl ml-"
        resizeMode={ResizeMode.CONTAIN}
        shouldPlay
        onPlaybackStatusUpdate={(status) => {
@@ -56,6 +56,8 @@ const VideoCard = ({
            setPlaying(false);
          }
        }}
+
+       useNativeControls
      />
       ) : (
         <TouchableOpacity className="w-full h-60 rounded-xl mt-3 relative justify-center items-center" activeOpacity={0.7}

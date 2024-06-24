@@ -95,6 +95,11 @@ const Trending = ({ posts }) => {
         itemVisiblePercentThreshold: 70,
       }}
       contentOffset={{ x: 170 }}
+      ListEmptyComponent={() => {
+        return (
+          <Text className="text-gray-100 text-2xl">No trending posts yet</Text>
+        );
+      }}
     />
   );
 };
