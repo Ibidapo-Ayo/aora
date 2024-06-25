@@ -2,6 +2,7 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { icons } from "../constants";
 import { ResizeMode, Video } from "expo-av";
+import { useGlobalContext } from "../context/GlobalProvider";
 
 const VideoCard = ({
   video: {
@@ -10,8 +11,11 @@ const VideoCard = ({
     video,
     creator: { username, avatar },
   },
+  id
 }) => {
   const [playing, setPlaying] = useState(false);
+  const { setPostId, setOpenActions } =
+  useGlobalContext();
 
   return (
     <View className="flex-col items-center px-4 mb-14">
@@ -39,9 +43,12 @@ const VideoCard = ({
             </Text>
           </View>
         </View>
-        <View>
+        <TouchableOpacity onPress={()=>{
+          setOpenActions(true)
+          setPostId(id)
+        }}>
           <Image source={icons.menu} className="w-5 h-5" resizeMode="contain" />
-        </View>
+        </TouchableOpacity>
       </View>
       {playing ? (
        <Video

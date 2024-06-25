@@ -51,6 +51,7 @@ const TrendingItems = ({ activeItem, item }) => {
               setPlaying(false);
             }
           }}
+          useNativeControls
         />
       ) : (
         <TouchableOpacity

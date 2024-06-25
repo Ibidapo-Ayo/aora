@@ -19,7 +19,7 @@ import { useGlobalContext } from "../../context/GlobalProvider";
 import * as ImagePicker from "expo-image-picker";
 
 const Create = () => {
-  const { user } = useGlobalContext();
+  const { user, setUpdated } = useGlobalContext();
   const [uploading, setUploading] = useState(false);
   const [form, setForm] = useState({
     title: "",
@@ -30,7 +30,10 @@ const Create = () => {
 
   const openPicker = async (selectType) => {
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: selectType === "image" ? ImagePicker.MediaTypeOptions.Images : ImagePicker.MediaTypeOptions.Videos,
+      mediaTypes:
+        selectType === "image"
+          ? ImagePicker.MediaTypeOptions.Images
+          : ImagePicker.MediaTypeOptions.Videos,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
@@ -54,7 +57,7 @@ const Create = () => {
     setUploading(true);
     try {
       await createVideo(form, user.$id);
-
+      setUpdated((prev) => prev + 1);
       Alert.alert("Success", "Post uploaded successfully");
       router.push("/home");
     } catch (error) {

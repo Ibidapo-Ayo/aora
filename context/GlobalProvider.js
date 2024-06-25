@@ -9,12 +9,18 @@ const GlobalProvider = ({children})=>{
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [user, setUser] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
+    const [openActions, setOpenActions] = useState(false)
+    const [savedPosts, setSavedPosts] = useState([])
+    const [postId, setPostId] = useState("")
+    const [updated, setUpdated] = useState(0)
 
     useEffect(()=> {
         getCurrentUser().then((res)=>{
             if(res){
                 setIsLoggedIn(true)
                 setUser(res)
+                console.log(res.likedPosts)
+                setSavedPosts(res.likedPosts)
             }else{
                 setIsLoggedIn(false)
                 setUser(null)
@@ -34,6 +40,14 @@ const GlobalProvider = ({children})=>{
             setUser,
             isLoading,
             setUser,
+            openActions,
+            setSavedPosts,
+            setOpenActions,
+            savedPosts,
+            updated,
+            setUpdated,
+            postId,
+            setPostId
         }}
         >
             {children}
