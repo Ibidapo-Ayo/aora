@@ -9,31 +9,30 @@ import VideoCard from "../../components/VideoCard";
 import { Alert } from "react-native";
 
 const Bookmark = () => {
-  const { savedPosts } = useGlobalContext();
+  const { savedPosts, updated } = useGlobalContext();
   const [refreshing, setRefreshing] = useState(false);
   const [savedPostsData, setSavedPostsData] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      setRefreshing(true);
-      try {
-        const fetchedPosts = await Promise.all(
-          savedPosts.map(async (postId) => {
-            const result = await getDocument(postId);
-            return result
-          })
-        );
-        console.log(fetchedPosts);
-        setSavedPostsData(fetchedPosts);
-      } catch (error) {
-        Alert.alert("Error", error.message);
-      } finally {
-        setRefreshing(false);
-      }
-    };
+      const fetchData = async () => {
+        setRefreshing(true);
+        try {
+          const fetchedPosts = await Promise.all(
+            savedPosts.map(async (postId) => {
+              const result = await getDocument(postId);
+              return result;
+            })
+          );
+          setSavedPostsData(fetchedPosts);
+        } catch (error) {
+          Alert.alert("Error", error.message);
+        } finally {
+          setRefreshing(false);
+        }
+      };
 
-    fetchData()
-  }, [savedPosts]);
+      fetchData();
+  }, [savedPosts, updated]);
   return (
     <SafeAreaView className="bg-primary h-full">
       {refreshing ? (

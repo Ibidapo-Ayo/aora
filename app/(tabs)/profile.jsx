@@ -1,9 +1,9 @@
 import { View, FlatList, Image, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useGlobalContext } from "../../context/GlobalProvider";
 
-import { icons} from "../../constants";
+import { icons } from "../../constants";
 import InfoBox from "../../components/InfoBox";
 import EmptyState from "../../components/EmptyState";
 import { getUserPosts, signOut } from "../../lib/api";
@@ -13,20 +13,25 @@ import LoadingState from "../../components/LoadingState";
 import { router, useLocalSearchParams } from "expo-router";
 
 const Profile = () => {
-  const { user, setUser, setIsLoggedIn } = useGlobalContext();
+  const { user, setUser, setIsLoggedIn, updated } = useGlobalContext();
   const { query } = useLocalSearchParams();
   const [refreshing, setRefreshing] = useState(false);
 
   const {
     data: posts,
     isLoading,
+    refetch,
   } = useFetch(() => getUserPosts(user.$id));
 
-  const logout = async() => {
-    await signOut()
-    setUser(null)
-    setIsLoggedIn(null)
-    router.replace("/sign-in")
+  useEffect(() => {
+    refetch();
+  }, [updated]);
+
+  const logout = async () => {
+    await signOut();
+    setUser(null);
+    setIsLoggedIn(null);
+    router.replace("/sign-in");
   };
 
   return (

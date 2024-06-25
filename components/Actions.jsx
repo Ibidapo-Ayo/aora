@@ -4,6 +4,7 @@ import { useGlobalContext } from "../context/GlobalProvider";
 import Modal from "react-native-modal";
 import { deletePost, updateUser } from "../lib/api";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { router } from "expo-router";
 
 const Actions = () => {
   const {
@@ -19,6 +20,10 @@ const Actions = () => {
   const handleDeletePost = async () => {
     try {
       await deletePost(postId);
+      const updatedData = savedPosts.filter((data) => data !== postId)
+      await updateUser(user.$id, {
+        likedPosts: updatedData
+      })
       Alert.alert("Post deleted", "Post has been delete successfully");
       setUpdated((prev) => prev + 1);
     } catch (error) {
@@ -39,7 +44,9 @@ const Actions = () => {
       const result = await updateUser(user.$id, {
         likedPosts: updateData,
       });
-      setSavedPosts(result.likedPosts);
+      setSavedPosts(result.likedPosts)
+      setUpdated((prev) => prev +1)
+      router.push("/bookmark")
     } catch (error) {
       Alert.alert("Error", error.message);
     } finally {

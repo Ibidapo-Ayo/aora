@@ -20,7 +20,6 @@ const GlobalProvider = ({children})=>{
             if(res){
                 setIsLoggedIn(true)
                 setUser(res)
-                console.log(res.likedPosts)
                 setSavedPosts(res.likedPosts)
             }else{
                 setIsLoggedIn(false)
