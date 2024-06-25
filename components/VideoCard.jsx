@@ -9,12 +9,12 @@ const VideoCard = ({
     title,
     thumbnail,
     video,
-    creator: { username, avatar },
+    creator: { username, avatar, $id },
   },
   id
 }) => {
   const [playing, setPlaying] = useState(false);
-  const { setPostId, setOpenActions } =
+  const { setPostId, setOpenActions, setCreator } =
   useGlobalContext();
 
   return (
@@ -46,6 +46,7 @@ const VideoCard = ({
         <TouchableOpacity onPress={()=>{
           setOpenActions(true)
           setPostId(id)
+          setCreator($id)
         }}>
           <Image source={icons.menu} className="w-5 h-5" resizeMode="contain" />
         </TouchableOpacity>

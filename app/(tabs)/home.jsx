@@ -33,6 +33,7 @@ const Home = () => {
     setRefreshing(false);
   };
 
+
   useEffect(() => {
     onRefresh();
   }, [updated]);

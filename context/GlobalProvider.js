@@ -13,6 +13,7 @@ const GlobalProvider = ({children})=>{
     const [savedPosts, setSavedPosts] = useState([])
     const [postId, setPostId] = useState("")
     const [updated, setUpdated] = useState(0)
+    const [creator, setCreator] = useState("")
 
     useEffect(()=> {
         getCurrentUser().then((res)=>{
@@ -47,7 +48,9 @@ const GlobalProvider = ({children})=>{
             updated,
             setUpdated,
             postId,
-            setPostId
+            setPostId,
+            creator, 
+            setCreator
         }}
         >
             {children}
