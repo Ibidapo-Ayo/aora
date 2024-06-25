@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useGlobalContext } from "../../context/GlobalProvider";
 
-import { icons, images } from "../../constants";
+import { icons} from "../../constants";
 import InfoBox from "../../components/InfoBox";
 import EmptyState from "../../components/EmptyState";
 import { getUserPosts, signOut } from "../../lib/api";

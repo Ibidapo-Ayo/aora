@@ -12,7 +12,6 @@ import CustomTextInput from "../../components/TextInput";
 import { ResizeMode, Video } from "expo-av";
 import { icons } from "../../constants";
 import Button from "../../components/Button";
-import * as DocumentPicker from "expo-document-picker";
 import { router } from "expo-router";
 import { createVideo } from "../../lib/api";
 import { useGlobalContext } from "../../context/GlobalProvider";

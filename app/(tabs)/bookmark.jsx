@@ -2,17 +2,14 @@ import { View, Text, FlatList, ActivityIndicator } from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useGlobalContext } from "../../context/GlobalProvider";
-
-import { icons, images } from "../../constants";
 import SearchInput from "../../components/SearchInput";
-import Trending from "../../components/Trending";
 import EmptyState from "../../components/EmptyState";
-import { getAllPosts, getDocument, getLatestPosts } from "../../lib/api";
+import { getDocument } from "../../lib/api";
 import VideoCard from "../../components/VideoCard";
 import { Alert } from "react-native";
 
 const Bookmark = () => {
-  const { user, updated, savedPosts } = useGlobalContext();
+  const { savedPosts } = useGlobalContext();
   const [refreshing, setRefreshing] = useState(false);
   const [savedPostsData, setSavedPostsData] = useState([]);
 
@@ -61,8 +58,8 @@ const Bookmark = () => {
             ListEmptyComponent={() => {
               return (
                 <EmptyState
-                  title="No Videos Found"
-                  subTitle="Be the first one to upload a video"
+                  title="No Saved Videos Found"
+                  subTitle="You have not save any video yet"
                 />
               );
             }}
